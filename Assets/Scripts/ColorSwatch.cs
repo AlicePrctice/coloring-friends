@@ -8,9 +8,11 @@ using UnityEngine.UIElements;
 public class ColorSwatch : MonoBehaviour
 {
     public int ID { get; private set; }
+    
 
     public bool Selected { get; private set; }
 
+    public int pixelCount;
 
     bool Completed;
     
@@ -33,11 +35,14 @@ public class ColorSwatch : MonoBehaviour
         remainingText = transform.Find("RemainingText").GetComponent<TextMeshProUGUI>();
 	}
 
-    public void SetData(int id, Color color)
+    public void SetData(int id, Color color, int pixNum)
 	{
         ID = id;
         IDtext.text = id.ToString();
         background.color = color;
+
+        pixelCount = pixNum;
+        remainingText.text = pixelCount.ToString();
 	}
 
     public void SetCompleted()
@@ -61,4 +66,12 @@ public class ColorSwatch : MonoBehaviour
 			}
 		}
 	}
+
+    public void ReducePixelCount()
+	{
+        pixelCount--;
+        remainingText.text = pixelCount.ToString();
+	}
+
+
 }

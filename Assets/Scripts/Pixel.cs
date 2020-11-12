@@ -5,7 +5,6 @@ public class Pixel : MonoBehaviour
 {
     public int ID { get; private set; }
 
-
 	[SerializeField] float wrongColorOpacity = 0.4f;
     TextMeshPro text;
     Color pixelColor;
@@ -76,7 +75,6 @@ public class Pixel : MonoBehaviour
 	{
 		if (!IsFilledIn)
 		{
-
 			foreach (ColorSwatch colorSwatch in FindObjectOfType<Game>().ColorSwatches)
 			{
 				if (colorSwatch.Selected == true)
@@ -86,14 +84,9 @@ public class Pixel : MonoBehaviour
 
 					background.color = tempColor;
 
-
-					
-					
 					return;
 				}
 			}
 		}
-
-
 	}
 }

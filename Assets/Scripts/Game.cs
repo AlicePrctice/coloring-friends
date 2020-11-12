@@ -5,13 +5,16 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using System;
 using TMPro;
+using System.Threading;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField][Range(0,1)] float cameraBackgroundColorTint = 0.2f;
-    
-    public Texture2D Texture;
-    Pixel[,] Pixels;
+	[Header("Pixel Art")]
+	[SerializeField] Texture2D Texture;
+	[Header("Background Settings")]
+	[SerializeField] [Range(0, 1)] float cameraBackgroundColorTint = 0.2f;
+
+	Pixel[,] Pixels;
     Camera Camera;
     float pixelUnitOffset = 0.5f;
     
@@ -84,38 +87,50 @@ public class Game : MonoBehaviour
 					}
                     PixelGroups[id].Add(Pixels[x, y]);
 				}
-
-
-
 			}
 		}
 	}
 
    void CreateColorSwatches()
 	{
+		
         foreach (KeyValuePair<Color, int> kvp in Colors)
 		{
             GameObject go = GameObject.Instantiate(Resources.Load("ColorSwatch") as GameObject);
             go.transform.parent = GameObject.FindGameObjectWithTag("ColorSwatchHolder").transform;
             
-            float offset = 2.8f;
+            float offset = 1.8f;
             go.transform.localPosition = new Vector2(kvp.Value * 65 * offset, -3);
             
             ColorSwatch colorswatch = go.GetComponent<ColorSwatch>();
-            colorswatch.SetData(kvp.Value, kvp.Key);
+
+			
+            
 
             ColorSwatches.Add(colorswatch);
 
-            if (gameTools.IsColorDark(kvp.Key))
+			int pixelCount = 0;
+			Color[] colors = Texture.GetPixels();
+			for (int i = 0; i < Pixels.Length; i++)
+			{
+				if (colors[i] == kvp.Key)
+				{
+					pixelCount++;
+				}
+			}
+			
+
+			colorswatch.SetData(kvp.Value, kvp.Key, pixelCount);
+
+			if (gameTools.IsColorDark(kvp.Key))
 			{
                 go.transform.Find("IDText").GetComponent<TextMeshProUGUI>().color = Color.white;
                 go.transform.Find("RemainingText").GetComponent<TextMeshProUGUI>().color = Color.white;
-
 			}
 		}
 	}
 
-    void DeselectAllColorSwatches()
+	void DeselectAllColorSwatches()
 	{
         for (int n = 0; n < ColorSwatches.Count; n++)
 		{
@@ -182,9 +197,12 @@ public class Game : MonoBehaviour
 		}
 	}
 
-	private static void FillPixel(Pixel hoveredPixel)
+	void FillPixel(Pixel hoveredPixel)
 	{
 		hoveredPixel.Fill();
+
+
+		SelectedColorSwatch.ReducePixelCount();
 
 	}
 
@@ -207,8 +225,6 @@ public class Game : MonoBehaviour
 		{
             PixelGroups[SelectedColorSwatch.ID][n].SetSelected(true);
 		}
-
-
 	}
 
     bool CheckIfSelectedComplete()
