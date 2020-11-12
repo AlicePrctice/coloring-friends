@@ -636,6 +636,10 @@ PrefabInstance:
       propertyPath: Area
       value: 
       objectReference: {fileID: 671181228}
+    - target: {fileID: 8917406754866585254, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
+      propertyPath: ZoomVelocity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9014708447010578789, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
