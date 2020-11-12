@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class ColorSwatch : MonoBehaviour
 {
@@ -12,9 +14,10 @@ public class ColorSwatch : MonoBehaviour
 
     bool Completed;
     
-    TextMeshPro text;
-    public SpriteRenderer background;
-    SpriteRenderer border;
+    TextMeshProUGUI IDtext;
+    TextMeshProUGUI remainingText;
+    public UnityEngine.UI.Image background;
+    UnityEngine.UI.Image border;
 
 
     [Header("Border Colors")]
@@ -24,22 +27,23 @@ public class ColorSwatch : MonoBehaviour
 
     private void Awake()
 	{
-        border = transform.Find("Border").GetComponent<SpriteRenderer>();
-        background = transform.Find("Background").GetComponent<SpriteRenderer>();
-        text = transform.Find("Text").GetComponent<TextMeshPro>();
+        border = transform.Find("Border").GetComponent<UnityEngine.UI.Image>();
+        background = transform.Find("Background").GetComponent<UnityEngine.UI.Image>();
+        IDtext = transform.Find("IDText").GetComponent<TextMeshProUGUI>();
+        remainingText = transform.Find("RemainingText").GetComponent<TextMeshProUGUI>();
 	}
 
     public void SetData(int id, Color color)
 	{
         ID = id;
-        text.text = id.ToString();
+        IDtext.text = id.ToString();
         background.color = color;
 	}
 
     public void SetCompleted()
 	{
         Completed = true;
-        text.text = "";
+        IDtext.text = "";
 	}
 
     public void SetSelected(bool selected)

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using System;
+using TMPro;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField][Range(0,1)] float cameraBackgroundColorTint = 0.2f;
+    
     public Texture2D Texture;
     Pixel[,] Pixels;
     Camera Camera;
     float pixelUnitOffset = 0.5f;
+    
 
     int ID = 1;
     Dictionary<Color, int> Colors = new Dictionary<Color, int>();
@@ -21,23 +26,27 @@ public class Game : MonoBehaviour
 
     RaycastHit2D[] Hits = new RaycastHit2D[1];
     ColorSwatch SelectedColorSwatch;
+    GameTools gameTools;
 
-
-	private void Awake()
+    private void Awake()
 	{
         Camera = Camera.main;
+        gameTools = new GameTools();
+        
 
         CreatePixelMap();
         CreateColorSwatches();
-        
-	}
-	
+    }
 
-    //
     void CreatePixelMap()
 	{
         // Puts all pixels into an array of colors
         Color[] colors = Texture.GetPixels();
+
+        Camera.backgroundColor = Color.Lerp(gameTools.MostFrequentColor(colors), Color.white, cameraBackgroundColorTint);
+        
+
+
         // Two dimensional array of Pixels storing individual locations
         Pixels = new Pixel[Texture.width, Texture.height];
 
@@ -82,19 +91,27 @@ public class Game : MonoBehaviour
 		}
 	}
 
-    void CreateColorSwatches()
+   void CreateColorSwatches()
 	{
         foreach (KeyValuePair<Color, int> kvp in Colors)
 		{
             GameObject go = GameObject.Instantiate(Resources.Load("ColorSwatch") as GameObject);
             go.transform.parent = GameObject.FindGameObjectWithTag("ColorSwatchHolder").transform;
-
+            
             float offset = 2.8f;
-            go.transform.position = new Vector2(kvp.Value * 2 * offset, -3);
+            go.transform.localPosition = new Vector2(kvp.Value * 65 * offset, -3);
+            
             ColorSwatch colorswatch = go.GetComponent<ColorSwatch>();
             colorswatch.SetData(kvp.Value, kvp.Key);
 
             ColorSwatches.Add(colorswatch);
+
+            if (gameTools.IsColorDark(kvp.Key))
+			{
+                go.transform.Find("IDText").GetComponent<TextMeshProUGUI>().color = Color.white;
+                go.transform.Find("RemainingText").GetComponent<TextMeshProUGUI>().color = Color.white;
+
+			}
 		}
 	}
 
@@ -109,56 +126,69 @@ public class Game : MonoBehaviour
 
 	private void Update()
 	{
-        Vector2 mousePos = Camera.ScreenToWorldPoint(Input.mousePosition);
-        int x = Mathf.FloorToInt(mousePos.x);
-        int y = Mathf.FloorToInt(mousePos.y);
+		PlayerInput();
+	}
 
-        Pixel hoveredPixel = null;
 
-        if (x >= 0 && x < Pixels.GetLength(0) && y >= 0 && y < Pixels.GetLength(1))  
+	private void PlayerInput()
+	{
+		Vector2 mousePos = Camera.ScreenToWorldPoint(Input.mousePosition);
+		int x = Mathf.FloorToInt(mousePos.x);
+		int y = Mathf.FloorToInt(mousePos.y);
+
+		Pixel hoveredPixel = null;
+
+		if (x >= 0 && x < Pixels.GetLength(0) && y >= 0 && y < Pixels.GetLength(1))
 		{
-            if (Pixels[x, y] != null)
+			if (Pixels[x, y] != null)
 			{
-                hoveredPixel = Pixels[x, y];
+				hoveredPixel = Pixels[x, y];
 
-            }
-        }
+			}
+		}
 
-        if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0))
 		{
-            //Check if we clicked on a color swatch
-            int hitCount = Physics2D.RaycastNonAlloc(mousePos, Vector2.zero, Hits);
+			//Check if we clicked on a color swatch
+			int hitCount = Physics2D.RaycastNonAlloc(mousePos, Vector2.zero, Hits);
 
-            for (int n = 0; n < hitCount; n++)
+			for (int n = 0; n < hitCount; n++)
 			{
-                if (Hits[n].collider.CompareTag("ColorSwatch"))
+				if (Hits[n].collider.CompareTag("ColorSwatch"))
 				{
-                    SelectColorSwatch(Hits[n].collider.GetComponent<ColorSwatch>());
+					SelectColorSwatch(Hits[n].collider.GetComponent<ColorSwatch>());
 				}
 			}
 		}
 
-        if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0))
 		{
-            if (hoveredPixel != null && !hoveredPixel.IsFilledIn)
+			if (hoveredPixel != null && !hoveredPixel.IsFilledIn)
 			{
-                if (SelectedColorSwatch != null && SelectedColorSwatch.ID == hoveredPixel.ID)
+				if (SelectedColorSwatch != null && SelectedColorSwatch.ID == hoveredPixel.ID)
 				{
-                    hoveredPixel.Fill();
-                    if (CheckIfSelectedComplete())
+					FillPixel(hoveredPixel);
+
+					if (CheckIfSelectedComplete())
 					{
-                        SelectedColorSwatch.SetCompleted();
+						SelectedColorSwatch.SetCompleted();
 					}
 				}
 				else
 				{
-                    hoveredPixel.FillWrong();
+					hoveredPixel.FillWrong();
 				}
 			}
 		}
 	}
 
-    void SelectColorSwatch(ColorSwatch swatch)
+	private static void FillPixel(Pixel hoveredPixel)
+	{
+		hoveredPixel.Fill();
+
+	}
+
+	void SelectColorSwatch(ColorSwatch swatch)
 	{
         if (SelectedColorSwatch != null)
 		{
@@ -193,8 +223,4 @@ public class Game : MonoBehaviour
 		}
         return true;
 	}
-
-
-
-
 }

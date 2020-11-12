@@ -53,3 +53,6 @@ TagManager:
   - name: PixelText
     uniqueID: 3403963483
     locked: 0
+  - name: Buttons
+    uniqueID: 4180114791
+    locked: 0
