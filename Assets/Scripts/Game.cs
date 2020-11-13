@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using TMPro;
 using System.Threading;
+using UnityEngine.VFX;
 
 public class Game : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class Game : MonoBehaviour
 	[SerializeField] Texture2D Texture;
 	[Header("Background Settings")]
 	[SerializeField] [Range(0, 1)] float cameraBackgroundColorTint = 0.2f;
+	[SerializeField] GameObject fireworks;
+	
 
 	Pixel[,] Pixels;
     Camera Camera;
     float pixelUnitOffset = 0.5f;
+	int pixelAmount = 0;
+
+	int numberOfSwatches = 0;
+	int numberOfCompletedSwatches = 0;
     
 
     int ID = 1;
@@ -31,21 +38,31 @@ public class Game : MonoBehaviour
     ColorSwatch SelectedColorSwatch;
     GameTools gameTools;
 
+	
+
+
+
+
     private void Awake()
 	{
         Camera = Camera.main;
         gameTools = new GameTools();
+
+		
         
 
         CreatePixelMap();
         CreateColorSwatches();
+
+		numberOfSwatches = ColorSwatches.Count;
     }
 
     void CreatePixelMap()
 	{
         // Puts all pixels into an array of colors
         Color[] colors = Texture.GetPixels();
-
+		
+		Debug.Log(pixelAmount);
         Camera.backgroundColor = Color.Lerp(gameTools.MostFrequentColor(colors), Color.white, cameraBackgroundColorTint);
         
 
@@ -121,6 +138,7 @@ public class Game : MonoBehaviour
 			
 
 			colorswatch.SetData(kvp.Value, kvp.Key, pixelCount);
+			pixelAmount += pixelCount;
 
 			if (gameTools.IsColorDark(kvp.Key))
 			{
@@ -187,6 +205,7 @@ public class Game : MonoBehaviour
 					if (CheckIfSelectedComplete())
 					{
 						SelectedColorSwatch.SetCompleted();
+						
 					}
 				}
 				else
@@ -200,9 +219,14 @@ public class Game : MonoBehaviour
 	void FillPixel(Pixel hoveredPixel)
 	{
 		hoveredPixel.Fill();
-
-
-		SelectedColorSwatch.ReducePixelCount();
+		pixelAmount--;
+		Debug.Log(pixelAmount);
+		SelectedColorSwatch.ReducePixelCounter();
+		
+		if (pixelAmount <= 0)
+		{
+			Win();
+		}
 
 	}
 
@@ -238,5 +262,14 @@ public class Game : MonoBehaviour
 			}
 		}
         return true;
+	}
+
+	
+	void Win()
+	{
+		Debug.Log("You won! " + fireworks);
+		fireworks.SetActive(true); 
+		
+		
 	}
 }

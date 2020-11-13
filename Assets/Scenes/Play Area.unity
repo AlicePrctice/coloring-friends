@@ -123,6 +123,115 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &498310453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 498310456}
+  - component: {fileID: 498310455}
+  - component: {fileID: 498310454}
+  m_Layer: 0
+  m_Name: Fireworks
+  m_TagString: Fireworks
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!73398921 &498310454
+VFXRenderer:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498310453}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!2083052967 &498310455
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498310453}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: dd0e4edad5513874a88eeb31db14a32f, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!4 &498310456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498310453}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -959.9999, y: -193.99998, z: 323.99997}
+  m_LocalScale: {x: 36, y: 36, z: 36}
+  m_Children: []
+  m_Father: {fileID: 1709723291}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &671181228 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5289047912161425760, guid: 0d3bb5db1672f4f4cb283276028b3269, type: 3}
@@ -352,11 +461,11 @@ RectTransform:
   - {fileID: 692159641}
   - {fileID: 1178398110}
   m_Father: {fileID: 1709723291}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -362}
+  m_AnchoredPosition: {x: 0, y: -352}
   m_SizeDelta: {x: 1920, y: 140.44904}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1172364884
@@ -508,8 +617,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1479850803}
   m_HandleRect: {fileID: 1479850802}
   m_Direction: 0
-  m_Value: -0.00000068925493
-  m_Size: 0.91554797
+  m_Value: 0
+  m_Size: 0.058630653
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -586,7 +695,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 177.10498, y: 300}
+  m_SizeDelta: {x: 30827.379, y: 123.449036}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1479850801
 GameObject:
@@ -753,6 +862,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 498310456}
   - {fileID: 1172364883}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -794,9 +904,9 @@ RectTransform:
   m_Father: {fileID: 1382102485}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -953.5525, y: 82.999916}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787629974
@@ -952,15 +1062,11 @@ PrefabInstance:
     - target: {fileID: 5672734765840552334, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
       propertyPath: Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 6603b0fef8fc709418aec3ea4ccab7cc, type: 3}
+      objectReference: {fileID: 2800000, guid: 36ed4179b2ecc2147aff018e48008b7a, type: 3}
     - target: {fileID: 5672734765840552334, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5672734765840552334, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
-      propertyPath: cameraBackgroundColorTint
-      value: 0.2
-      objectReference: {fileID: 0}
+      propertyPath: fireworks
+      value: 
+      objectReference: {fileID: 498310453}
     - target: {fileID: 5672734765840552336, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
       propertyPath: m_Name
       value: Game
@@ -1009,14 +1115,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5672734765840552337, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5672734765840552337, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3edefc1fcf693944a3a87f789e18ffe, type: 3}
 --- !u!1001 &9014708446967290341
@@ -1031,8 +1129,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 671181228}
     - target: {fileID: 8917406754866585254, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
-      propertyPath: ZoomVelocity
-      value: 0
+      propertyPath: dragSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9014708447010578789, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1083,20 +1181,12 @@ PrefabInstance:
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 9014708447010578842, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
-      propertyPath: orthographic size
-      value: 15
+      propertyPath: m_ClearFlags
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9014708447010578842, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.26415092
-      objectReference: {fileID: 0}
-    - target: {fileID: 9014708447010578842, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.12086151
-      objectReference: {fileID: 0}
-    - target: {fileID: 9014708447010578842, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.19549143
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c62f19264ca905479cecbdbbcf697cc, type: 3}

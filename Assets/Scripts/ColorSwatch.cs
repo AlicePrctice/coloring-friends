@@ -16,6 +16,7 @@ public class ColorSwatch : MonoBehaviour
 
     bool Completed;
     
+    
     TextMeshProUGUI IDtext;
     TextMeshProUGUI remainingText;
     public UnityEngine.UI.Image background;
@@ -67,7 +68,7 @@ public class ColorSwatch : MonoBehaviour
 		}
 	}
 
-    public void ReducePixelCount()
+    public void ReducePixelCounter()
 	{
         pixelCount--;
         remainingText.text = pixelCount.ToString();

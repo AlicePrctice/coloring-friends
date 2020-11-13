@@ -7,6 +7,7 @@ TagManager:
   - ColorSwatch
   - PixelHolder
   - ColorSwatchHolder
+  - Fireworks
   layers:
   - Default
   - TransparentFX

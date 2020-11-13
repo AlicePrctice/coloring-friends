@@ -3,7 +3,7 @@
 
 public class Camera2D : MonoBehaviour
 {
-	public Transform Area;
+    public Transform Area;
 
     float Top;
     private Vector2 Size;
@@ -13,10 +13,17 @@ public class Camera2D : MonoBehaviour
     float Distance = 20;
     bool LockZoom;
     public float ZoomVelocity;
-    float ZoomSpeed = 50.0f;
-    float ZoomMin = 10f, ZoomMax = 25f;
+    float ZoomSpeed = 80f;
+    float ZoomMin = 2f, ZoomMax = 50f;
 
     Camera Camera;
+
+
+    /// <summary>
+    /// Experimental below
+    /// </summary>
+    public float dragSpeed = 0.02f;
+    private Vector3 dragOrigin;
 
     private void Awake()
     {
@@ -58,9 +65,29 @@ public class Camera2D : MonoBehaviour
 
             ZoomVelocity = Mathf.Lerp(ZoomVelocity, 0, 0.1f);
         }
+
+        CameraDrag();
     }
 
-    public void Set()
+
+    // Experimental
+	private void CameraDrag()
+	{
+        if (Input.GetMouseButtonDown(1))
+        {
+            dragOrigin = Input.mousePosition; 
+            return;
+        }
+
+        if (!Input.GetMouseButton(1)) return;
+
+        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+        Vector3 move = new Vector3(pos.x * -dragSpeed, pos.y * -dragSpeed,0);
+
+        transform.Translate(move, Space.World);
+    }
+
+	public void Set()
 	{
         if (Camera == null)
             Camera = transform.gameObject.GetComponent<Camera>();
